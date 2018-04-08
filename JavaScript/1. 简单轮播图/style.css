@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 轮播容器样式 */
+#carousel {
+  position: relative;  /* 轮播容器必须是定位流的一种 */
+  width: 384px;  /* 轮播容器宽度与图片宽度一致 */
+  height: 216px;  /* 轮播容器高度与图片高度一致 */
+  margin: 100px auto;
+  border: solid 3px red;
+  overflow: hidden;
+}
+
+/* 图片样式 */
+#images {
+  /* 图片li的容器ul，定位为固定，方便在轮播容器中布局 */
+  position: absolute;
+  left: -384px;  /* 有 a 张图片就改为 -a*图片宽度，为了无缝滚动 */
+  top: 0;
+  /* width: 700%;  有 a 张图片就改为 (a+2)*100%，为了无缝滚动 ，此处使用 js 动态生成，详见js*/
+}
+#images li {
+  list-style: none;
+  float: left;
+}
+img {
+  display: block;  /* 含图片的a标签下面会多出几个像素，用此方法消除 */
+  width: 384px;
+  height: 216px;
+}
+
+/* 左右导航样式 */
+#prev, #next {
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  background-color: white;
+  opacity: 0.5;
+  display: none;
+}
+#carousel:hover #prev,#carousel:hover #next{
+  display: block;
+}
+#prev {
+  left: 0;
+}
+#next {
+  right: 0;
+}
+#prev img,#next img {
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  margin: auto;
+}
+
+/* 小圆点样式，小圆点元素由 js 动态生成，此处使用 ol 和 li */
+#carousel ol {
+  /* 绝对定位元素，显式地写出上下左右，配合 margin: auto; 和元素宽高，可实现水平、垂直、水平垂直居中，元素宽高可根据需求决定是否要写*/
+  position: absolute;
+  left: 50px; right: 50px; bottom: 3px;
+  margin: auto;
+  /* ol 中的 text-align: center; 结合 li 中的 display: inline-block; 使 li 水平居中*/
+  text-align: center;
+}
+#carousel ol li {
+  display: inline-block;
+  list-style: none;
+  margin: 0 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  line-height: 20px;  /* li 中内容垂直居中，若没有内容可以不写 */
+  cursor: pointer;
+  background-color: pink;
+}
+#carousel ol li.current{
+  /* 设置当前图片对应的小圆点的样式 */
+  background-color: purple; 
+}
