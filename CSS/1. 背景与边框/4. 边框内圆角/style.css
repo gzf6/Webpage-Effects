@@ -1,0 +1,26 @@
+/* 
+ * 边框内侧圆角，外侧依然直角
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+.box1 {
+  margin: 100px auto;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+  background-color: #00ccff;
+
+  /* 原理
+   * 1. 元素设置圆角；
+   * 2. 用 outline 充当边框，outline不会跟随圆角，依然为直角；
+   * 3. 用 box-shadow 填充元素与其outline之间的空隙，box-shadow 与 outline 颜色一致；
+   * 4. box-shadow 的投影扩张值应当为 (sqrt(2)−1)*r，为了避免每次都要计算，你可以直接使用圆角半径的一半；
+   * 5. 方法局限：为了让这个效果得以达成，投影扩张半径需要比描边的宽度值小，但它同时又要比 (sqrt(2)−1)*r 大，这意味着，如果描边的宽度比 (sqrt(2)−1)*r 小，那我们是不可能用这个方法达成该效果的。
+  */
+  border-radius: 5em;
+  box-shadow: 0 0 0 2.5em deeppink;
+  outline: 4em solid deeppink;
+}

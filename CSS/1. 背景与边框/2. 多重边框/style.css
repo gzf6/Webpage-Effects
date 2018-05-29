@@ -8,7 +8,7 @@
  * 投影不影响布局，不受 box-sizing 属性的影响。
  * 投影创建出的假“边框”出现在元素的外圈，不会影响鼠标事件。
  */
-#box1 {
+.box1 {
   margin: 100px auto;
   width: 200px;
   height: 200px;
@@ -26,7 +26,7 @@
  * 另一个好处，可以通过 outline-offset 属性来控制它跟元素边缘之间的间距，这个属性甚至可以接受负值。
  * 缺点：只适用于双层“边框”；不会贴合元素的圆角（未来可能会改善）
  */
-#box2 {
+.box2 {
   margin: 100px auto;
   width: 200px;
   height: 200px;
@@ -34,7 +34,7 @@
   border: 20px solid #00ccff;
   outline: 5px solid deeppink;
 }
-#box3 {
+.box3 {
   margin: 100px auto;
   width: 200px;
   height: 200px;

@@ -8,7 +8,7 @@
  * 它允许我们指定背景图片距离任意角的偏移量，
  * 只要我们在偏移量前面指定关键字。
  */
-#box1 {
+.box1 {
   margin: 100px auto;
   padding: 10px;
   width: 200px;
@@ -27,7 +27,7 @@
  * background-origin 可以用来改变这种行为，
  * 它的值默认为 padding-box，可以改为以 content-box 为基准。
  */
- #box2 {
+.box2 {
   margin: 100px auto;
   padding: 10px;
   width: 200px;
@@ -39,11 +39,11 @@
 /* calc() 方案
  * 我们想要将背景图片定位到底边10px，右边10px;
  * 以左上角偏移的思路来考虑，
- * 其实就是希望它有一个100% - 20px 的水平偏移量，
+ * 其实就是希望它有一个100% - 10px 的水平偏移量，
  * 以及100% - 10px 的垂直偏移量。
  * calc()内部的 + 和 - 等运算符号必须两边留出一个空格。
  */
- #box3 {
+.box3 {
   margin: 100px auto;
   padding: 10px;
   width: 200px;
