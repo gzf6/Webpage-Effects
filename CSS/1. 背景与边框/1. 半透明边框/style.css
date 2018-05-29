@@ -1,0 +1,29 @@
+body {
+  background-color: #ff0000;
+}
+/* #box1 与 #box2样式完全相同，除了 background-clip */
+#box1 {
+  margin: 100px auto;
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  border: 20px solid hsla(0, 0%, 100%, .5);
+  /*
+   * background-clip 默认为 border-box，
+   * 效果是盒子的背景颜色范围包括内容、padding、边框；
+   * 此时盒子的背景颜色阻挡了原本想要透过半透明边框透上来的body的背景。
+   */
+}
+#box2 {
+  margin: 100px auto;
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  border: 20px solid hsla(0, 0%, 100%, .5);
+  /*
+   * background-clip: padding-box;
+   * 将背景颜色范围裁剪到内容、padding；
+   * body的背景就会透过半透明边框透上来。
+   */
+  background-clip: padding-box;
+}

@@ -1,0 +1,44 @@
+/* box-shadow 方案
+ * 利用box-shadow的第四个参数“扩张半径”，
+ * 通过指定正值或负值，可以让投影面积加大或者减小。
+ * 一个正值的扩张半径加上两个为零的偏移量以及为零的模糊值，得到的“投影”其实就像一道实线边框。（只能模拟实线边框）
+ * 与border属性不同，box-shadow支持逗号分隔语法，可创建任意个投影。
+ * 先定义的阴影在最上面，后面的依次被盖住，所以某一层阴影的扩张半径应该等于它上一层阴影的扩张半径加上想显示的实际半径。
+ * 
+ * 投影不影响布局，不受 box-sizing 属性的影响。
+ * 投影创建出的假“边框”出现在元素的外圈，不会影响鼠标事件。
+ */
+#box1 {
+  margin: 100px auto;
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  border: 20px solid #00ccff;
+  box-shadow: 0 0 0 10px #655,
+              0 0 0 15px deeppink,
+              0 2px 5px 15px rgba(0,0,0,.6);
+}
+
+/* outline 方案
+ * 在某些情况下，你可能只需要两层边框，
+ * 可以先设置一层常规边框，再加上outline（描边）属性来产生外层的边框。
+ * 优点：灵活，可模拟的样式多。
+ * 另一个好处，可以通过 outline-offset 属性来控制它跟元素边缘之间的间距，这个属性甚至可以接受负值。
+ * 缺点：只适用于双层“边框”；不会贴合元素的圆角（未来可能会改善）
+ */
+#box2 {
+  margin: 100px auto;
+  width: 200px;
+  height: 200px;
+  background: #fff;
+  border: 20px solid #00ccff;
+  outline: 5px solid deeppink;
+}
+#box3 {
+  margin: 100px auto;
+  width: 200px;
+  height: 200px;
+  background: #00ccff;
+  outline: 5px dashed deeppink;
+  outline-offset: -5px;
+}

@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* background-position 的扩展语法方案
+ * CSS3中，background-position 属性已经得到扩展，
+ * 它允许我们指定背景图片距离任意角的偏移量，
+ * 只要我们在偏移量前面指定关键字。
+ */
+#box1 {
+  margin: 100px auto;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+  background: url("./img/1.jpg") no-repeat #00ccff;
+  background-position: right 10px bottom 10px;
+}
+
+/* background-origin 方案
+ * 当想要设定的偏移量与padding一致时，可利用此方案，
+ * 背景图片的偏移量随padding的变化而变化。
+ * 
+ * background-position 是以padding-box为准的，
+ * 这样边框才不会遮住背景图片。
+ * 此时 top left 以padding-box为基准。
+ * background-origin 可以用来改变这种行为，
+ * 它的值默认为 padding-box，可以改为以 content-box 为基准。
+ */
+ #box2 {
+  margin: 100px auto;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+  background: url("./img/1.jpg") no-repeat #00ccff bottom right;
+  background-origin: content-box;
+}
+
+/* calc() 方案
+ * 我们想要将背景图片定位到底边10px，右边10px;
+ * 以左上角偏移的思路来考虑，
+ * 其实就是希望它有一个100% - 20px 的水平偏移量，
+ * 以及100% - 10px 的垂直偏移量。
+ * calc()内部的 + 和 - 等运算符号必须两边留出一个空格。
+ */
+ #box3 {
+  margin: 100px auto;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+  background: url("./img/1.jpg") no-repeat #00ccff;
+  background-position: calc(100% - 10px) calc(100% - 10px);
+}
