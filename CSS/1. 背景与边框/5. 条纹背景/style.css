@@ -1,0 +1,78 @@
+/* 利用背景颜色渐变模仿条纹 */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+.box {
+  margin: 100px auto;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+  background-color: #00ccff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Microsoft YaHei";
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* 
+ * 颜色过渡时，前后色标的过渡起点一致，则过渡区域无限小，此时变成条纹 
+ * 条纹的宽度通过色标过渡起点调节，即百分比
+ */
+.box1 {
+  background: linear-gradient(#00ccff 50%,deeppink 50%);
+  background-size: 100% 30px;
+}
+
+/* 
+ * 如果我们把第二个色标的位置值设置为0，那它的位置就总是会被浏览器调整为前一个色标的位置值
+ */
+.box2 {
+  background: linear-gradient(#00ccff 30%,deeppink 30%);
+  background-size: 100% 30px;
+}
+
+/* 多条条纹 */
+.box3 {
+  background: linear-gradient(#00ccff 40%,deeppink 0,deeppink 70%,yellow 70%);
+  background-size: 100% 30px;
+}
+
+/* 垂直条纹 在开头额外加一个角度的参数 90deg或180deg*/
+.box4 {
+  background: linear-gradient(90deg, #00ccff 40%,deeppink 0,deeppink 70%,yellow 70%);
+  background-size: 30px 100%;
+}
+
+/* 斜向条纹 
+ * 需两种颜色，四种条纹，颜色交错，固定宽高的小背景块才能无缝拼接以此类推
+ * 此时条纹宽度需要用勾股定理计算，按需调整背景宽高
+ * 此种方法局限：只能是 45deg 或 135deg
+ */
+.box5 {
+  background: linear-gradient(45deg, #00ccff 25%,deeppink 0,deeppink 50%,#00ccff 0,#00ccff 75%,deeppink 0);
+  background-size: 50px 50px;
+}
+
+/* 更好的斜向条纹 
+ * 利用 linear-gradient() 的循环加强版 ：repeating-linear-gradient()
+ * 工作方式与前者类似，只是色标是无线循环重复的，直到填满整个背景
+ * 注意：色标的起始改为固定数值，即条纹的宽度，且不用设置背景大小。
+ */
+.box6 {
+  background: repeating-linear-gradient(60deg, #00ccff,#00ccff 15px,deeppink 0,deeppink 30px);
+}
+
+/* 灵活的同色系条纹 
+ * 同色系、颜色差异不大的条纹
+ * 原理：最深色作为背景颜色，半透明白色条纹叠加其上得到浅色条纹
+ * transparent 是完全透明，也可以控制颜色的透明度，得到不同的颜色
+ */
+.box7 {
+  background: #00ccff;
+  background-image: repeating-linear-gradient(60deg, hsla(0,0%,100%,.5), hsla(0,0%,100%,.5) 15px, transparent 0, transparent 30px);
+}
