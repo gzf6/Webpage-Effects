@@ -1,0 +1,109 @@
+/* 
+ * 制作比条纹更复杂的背景图案。用CSS 渐变来创建任何种类的几何图案几乎都是可能的，只不过有时这种方法不太实际。我们可能稍不留神就会弄出一大块无法维护的代码。CSS 图案可以算是一个值得使用CSS 预处理器（比如Sass，http://sass-lang.com）来减少代码冗余的案例，因为最终图案越复杂，相应的代码就会变得越来越不DRY。
+ * http://lea.verou.me/css3patterns/ css复杂背景图库，过于复杂的背景图案，SVG 是更好的选择
+ */
+
+/* 本节技巧可与混合模式（blending mode）结合 
+ * background-blend-mode 属性
+ * Bennett feely图案库：http://www.bennettfeely.com/gradients/*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: rgb(85, 85, 197);
+}
+.box {
+  margin: 100px auto;
+  padding: 10px;
+  width: 200px;
+  height: 200px;
+  background-color: #00ccff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Microsoft YaHei";
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* 网格
+ * 把多个渐变图案组合起来，让它们透过彼此的透明区域显现时，可制作多种复杂图案，比如网格。
+ */
+.box1 {
+  background: white;
+  background-image:
+    linear-gradient(90deg, rgba(200,0,0,.5) 50%, transparent 0),
+    linear-gradient(rgba(200,0,0,.5) 50%, transparent 0);
+  background-size: 30px 30px;
+}
+
+/* 有辅助线的网格
+ * 在某些情况下，我们希望网格中每个格子的大小可以调整，而网格线条的粗细同时保持固定。
+ */
+.box2 {
+  background: #00ccff;
+  background-image:
+    linear-gradient(white 1px, transparent 0),
+    linear-gradient(90deg, white 1px, transparent 0);
+  background-size: 30px 30px;
+}
+
+/* 蓝图 */
+.box3 {
+  background: #00ccff;
+  background-image:
+    linear-gradient(white 2px, transparent 0),
+    linear-gradient(90deg, white 2px, transparent 0),
+    linear-gradient(hsla(0,0%,100%,.3) 1px,transparent 0),
+    linear-gradient(90deg, hsla(0,0%,100%,.3) 1px,transparent 0);
+  background-size:
+    75px 75px, 75px 75px,
+    15px 15px, 15px 15px;
+}
+
+/* 波点
+ * 利用径向渐变
+ */
+.box4 {
+  background-color: #00ccff;
+  background-image: radial-gradient(white 30%,transparent 0);
+  background-size: 30px 30px;
+}
+
+.box5 {
+  background-color: #00ccff;
+  background-image: 
+    radial-gradient(white 30%,transparent 0),
+    radial-gradient(white 30%,transparent 0);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+/* 棋盘
+ * 窍门在于用两个直角三角形来拼合出我们想要的方块。
+ */
+.box6 {
+  background: #eee;
+  background-image:
+    linear-gradient(45deg, rgba(0,0,0,.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,.25) 0),
+    linear-gradient(45deg, rgba(0,0,0,.25) 25%, transparent 0, transparent 75%, rgba(0,0,0,.25) 0);
+  background-position: 0 0, 15px 15px;
+  background-size: 30px 30px;
+}
+
+/* 棋盘(SVG 方案)
+ * 代码量更少
+ */
+.box7 {
+  background: #eee url('data:image/svg+xml,\
+              <svg xmlns="http://www.w3.org/2000/svg" \
+                   width="100" height="100" \
+                   fill-opacity=".25">\
+              <rect x="50" width="50" height="50" /> \
+              <rect y="50" width="50" height="50" /> \
+              </svg>');
+  background-size: 30px 30px;
+}
