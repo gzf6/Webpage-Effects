@@ -1,0 +1,49 @@
+/* 
+ * 模仿自然界的随性
+ * 
+ */
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  margin: 100px auto;
+  padding: 10px;
+  width: 600px;
+  height: 200px;
+  background-color: #00ccff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Microsoft YaHei";
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* 伪随机条纹
+ * 以一种颜色为背景，其他颜色作为条纹在其上分布
+ * 选择质数作为条纹宽度和背景宽度，增加随机性。（出现重复的地方至少是这些数的最小公倍数）
+ * 通过质数增加随机性称为“蝉原则”，由Alex Walker提出，不仅适用于背景，其他适用场景：
+ * 在照片图库中，为每幅图片应用细微的伪随机旋转效果时，可以使用多个:nth-child(a) 选择符，且让 a 是质数。
+ * 如果要生成一个动画，而且想让它看起来不是按照明显的规律在循环时，我们可以应用多个时长为质数的动画。（可以在play.csssecrets.io/cicanimation 看到一个示例。）
+ */
+.box1 {
+  background: hsl(20, 40%, 90%);
+  background-image:
+    linear-gradient(90deg, #fb3 11px, transparent 0),
+    linear-gradient(90deg, #ab4 23px, transparent 0),
+    linear-gradient(90deg, #655 41px, transparent 0);
+  background-size: 41px 100%, 61px 100%, 83px 100%;
+}
+
+
+/* 向Alex Walker 脱帽致敬，感谢他在《蝉原则对网页设计的重要性》
+（http://www.sitepoint.com/the-cicada-principle-and-why-it-matters-to-webdesigners）
+一文中首次提出这个创意，本篇攻略正是受了它的启发。Eric
+Meyer（http://meyerweb.com）后来把这个创意应用到了CSS 渐变所生成的
+背景图像上，并把这两者结合的产物称作“蝉渐变图案”（http://meyerweb.com/eric/thoughts/2012/06/22/cicadients）。Dudley Storey 也为这个概念
+写了一篇信息量很大的文章（http://demosthenes.info/blog/840/Brood-XVisualizing-The-Cicada-Principle-In-CSS）。 */
