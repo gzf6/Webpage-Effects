@@ -1,0 +1,74 @@
+/* 
+ * 把一幅图案或图片应用为边框
+ * 主要的思路就是在背景图片之上，再叠加一层纯白的实色背景。
+ * 为了让下层的图片背景透过边框区域显示出来，我们需要给两层背景指定不同的background-clip 值。
+ * 最后一个要点在于，我们只能在多重背景的最底层设置背景色，因此需要用一道从白色过渡到白色的CSS 渐变来模拟出纯白实色背景的效果。
+ */
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  margin: 100px auto;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Microsoft YaHei";
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.box1 {
+  padding: 1rem;
+  border: 1rem solid transparent;
+  background: linear-gradient(white, white),url('./img/1.jpg');
+  background-size: cover;
+  background-clip: padding-box, border-box;
+  background-origin: border-box;
+}
+
+/* 老式信封 */
+.box2 {
+  height: 50px;
+  padding: 1rem;
+  border: 1rem solid transparent;
+  background: linear-gradient(white, white) padding-box,
+  repeating-linear-gradient(-45deg,
+  red 0, red 12.5%,
+  transparent 0, transparent 25%,
+  #58a 0, #58a 37.5%,
+  transparent 0, transparent 50%)
+  0 / 5rem 5rem;
+}
+
+/* 蚂蚁行军边框 */
+.box3 {
+  padding: 1rem;
+  border: 1px solid transparent;
+  background:
+  linear-gradient(white, white) padding-box,
+  repeating-linear-gradient(-45deg,
+  black 0, black 25%, white 0, white 50%
+  ) 0 / .6rem .6rem;
+  animation: ants 12s linear infinite;
+}
+@keyframes ants { to { background-position: 100% } }
+
+/* 脚注 
+ * border-image 属性再加上一条由渐
+变生成的垂直条纹，并把要裁切的长度在渐变中写好。边框线的粗细交给
+border-width 来控制
+ */
+.box4 {
+  border-top: .2rem solid transparent;
+  border-image: 100% 0 0 linear-gradient(90deg, currentColor 4rem, transparent 0);
+  padding-top: 1rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
