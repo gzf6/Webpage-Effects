@@ -1,0 +1,51 @@
+/* 
+ * border-radius 可以单独指定水平和垂直半径，只要用一个斜杠（/）分隔这两个值即可。
+ * http://simurai.com/archive/buttons/  使用border-radius发挥到了极致，制作出了各种奇妙形状
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  margin: 100px auto;
+  background-color: #00ccff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Microsoft YaHei";
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* 自适应的椭圆 */
+.box1 {
+  width: 400px;
+  height: 200px;
+  /* border-radius: 50% / 50%; */
+  border-radius: 50%; /* 简写 */
+}
+
+/* 半椭圆 
+ * 可以为所有四个角提供完全不同的水平和垂直半径，方法是在斜杠前指定1~4 个值，在斜杠后指定另外1~4 个值
+ */
+.box2 {
+  width: 200px;
+  height: 400px;
+  border-radius: 50% / 100% 100% 0 0;
+}
+
+.box3 {
+  width: 400px;
+  height: 200px;
+  border-radius: 100% 0 0 100% / 50%;
+}
+
+/* 四分之一椭圆 */
+.box4 {
+  width: 400px;
+  height: 200px;
+  border-radius: 100% 0 0 0;
+}
