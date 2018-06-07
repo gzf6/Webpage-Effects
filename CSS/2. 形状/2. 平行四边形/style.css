@@ -1,0 +1,62 @@
+/* 
+ * 利用 skew() 属性
+ * 但我们的需求是只让容器的形状倾斜，而保持其内容不变
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  margin: 100px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Microsoft YaHei";
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* 嵌套元素方案
+ * 对内容再应用一次反向的 skew() 变形
+ * 这意味着我们将不得不使用一层额外的HTML 元素来包裹内容
+ */
+.box1 {
+  width: 400px;
+  height: 200px;
+  transform: skewX(-45deg);
+  background-color: #00ccff;
+}
+.box1>div {
+  transform: skewX(45deg);
+}
+
+/* 伪元素方案 
+ * 另一种思路是把所有样式（背景、边框等）应用到伪元素上，然后再对伪元素进行变形。
+ * 因为我们的内容并不是包含在伪元素里的，所以内容并不会受到变形的影响。
+ * 该技巧适用与任何变形方案，当我们想变形一个元素而不想变形它的内容时就可以用到它。
+ */
+.box2 {
+  position: relative;
+  width: 400px;
+  height: 200px;
+}
+.box2::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1; /* 防止遮住内容 */
+  width: 400px;
+  height: 200px;
+  transform: skewX(-45deg);
+  background-color: #00ccff;
+}
+
+/* 
+ * 如果要在 IE8 下实现多重背景，这个方法往往是不错的变通解决方案。这个创意最初是由Nicolas Gallagher（http://nicolasgallagher.com/multiple-backgrounds-and-borders-with-css2）发现的。
+ * 这个方法可以用来实现“边框内圆角”中的效果。你能猜到怎么做吗？
+ * 这个方法可以用来为某一层“背景”单独设置类似 opacity 这样的属性。这个技巧也是由Nicolas Gallagher（http://nicolasgallagher.com/css-background-image-hacks）首创的。
+ * 当我们不能使用“多重边框”中的技巧时，这个方法还可以用一种更加灵活的方式来模拟多层边框。比如，当我们需要多层的虚线边框，或者需要在多重边框之间留有透明空隙时。
+ */
