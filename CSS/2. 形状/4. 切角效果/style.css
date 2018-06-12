@@ -1,0 +1,98 @@
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  margin: 100px auto;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Microsoft YaHei";
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* 直切角
+ * 窍门：利用渐变的一大特性：渐变可以接受一个角度（比如45deg）作为方向，而且色标的位置信息也可以是绝对的长度值，这一点丝毫不受容器尺寸的影响
+ */
+.box1 {
+  background: #00ccff; /* 回退机制，为不支持渐变的浏览器准备 */
+  background: linear-gradient(-45deg,transparent 20px,#00ccff 0);
+}
+
+/* 双直切角 */
+.box2 {
+  background: #00ccff;
+  background:
+    linear-gradient(-45deg, transparent 20px, #00ccff 0) right,
+    linear-gradient(45deg, transparent 20px, deeppink 0) left;
+  /* 两个切角，背景大小平分 */
+  background-size: 50% 100%;
+  /* 禁止背景重复 */
+  background-repeat: no-repeat;
+}
+
+/* 多直切角 */
+.box3 {
+  background: #00ccff;
+  background:
+    linear-gradient(135deg, transparent 20px, #00ccff 0) top left,
+    linear-gradient(-135deg, transparent 20px, #ffccff 0) top right,
+    linear-gradient(-45deg, transparent 20px, #0000ff 0) bottom right,
+    linear-gradient(45deg, transparent 20px, #00ccaa 0) bottom left;
+  /* 四个切角，背景大小平分 */
+  background-size: 50% 50%;
+  /* 禁止背景重复 */
+  background-repeat: no-repeat;
+}
+
+/* 弧形切角
+ * 窍门：原理与直切角类似，只是用径向渐变代替线性渐变
+ */
+.box4 {
+  background: #00ccff;
+  background: 
+    radial-gradient(circle at top left,transparent 20px,#00ccff 0) top left,
+    radial-gradient(circle at top right,transparent 20px,#00ccff 0) top right,
+    radial-gradient(circle at bottom left,transparent 20px,#00ccff 0) bottom left,
+    radial-gradient(circle at bottom right,transparent 20px,#00ccff 0) bottom right;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+/* 内联 SVG 与 border-image 方案 
+ * 浏览器支持程度差
+ * 由于尺寸无关紧要（border-image 会解决缩放问题，而SVG 可以实现与尺寸完全无关的完美缩放——这就是矢量图的好处），每个切片的尺寸都可以设置为1，以便理解和书写。切角的尺寸是1，直线边缘也都是1。
+ * 请注意，我们使用的切片尺寸是1。这并不表示1 像素；它所对应的是 SVG 文件的坐标系统（因此不需要单位）。如果我们用百分比来指定这些长度，就只能采用33.34% 这样的值来近似地获得图像尺寸的三分之一。近似值总是有风险的，因为不是所有的浏览器都使用相同的计算精度。但如果使用SVG 文件的坐标系统作为度量单位，我们就不用为此头痛了。
+ */
+.box5 {
+  /* 切角大小需要勾股定理计算 */
+  border: 20px solid lightcoral;
+  border-image: 1 url('data:image/svg+xml,\
+  <svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" fill="#00ccff"> \
+  <polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2"/>\
+  </svg>');
+  background: lightcoral;
+  background-clip: padding-box;
+}
+
+/* 裁切路径方案
+ * 浏览器支持度差
+ * 改变背景方便，只用改一处，但改变切角尺寸要改8处。
+ * 最大好处在于，可以使用任意类型的背景，甚至可以对替换元素（比如图片）进行裁切，之前的方法都做不到。
+ * 更大的缺点，就是当内边距不够宽时，它会裁切掉文本，因为它只能对元素做统一的裁切，并不能区分元素的各个部分。
+ * 与此不同的是，渐变方案允许文字溢出并超出切角区域（因为它只是背景图案）；而border-image 方案则会起到普通边框的作用，令文字折行。
+ */
+.box6 {
+  background: #00ccff;
+  clip-path: polygon(
+  20px 0, calc(100% - 20px) 0, 100% 20px,
+  100% calc(100% - 20px), calc(100% - 20px) 100%,
+  20px 100%, 0 calc(100% - 20px), 0 20px
+  );
+}
