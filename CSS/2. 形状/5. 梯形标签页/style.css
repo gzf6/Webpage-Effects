@@ -1,0 +1,71 @@
+/* 试想在现实的三维世界中旋转一个矩形。由于透视的关系，我们最终看到的二维图像往往就是一个梯形 */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  margin: 100px auto;
+  width: 200px;
+  height: 100px;
+  display: flex;
+  
+  align-items: center;
+  font-family: "Microsoft YaHei";
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+}
+
+/* 用伪元素来生成一个矩形
+ * 由于我们是对整个元素应用3D 变形的，因此它上面的文字也变形了。对元素使用了3D变形之后，其内部的变形效应是“不可逆转”的，这一点跟 2D 变形不同。
+ * 因此，如果我们想发挥 3D 变形的功能来生成梯形，唯一可行的途径就是把变形效果作用在伪元素上。
+ * 缺点：斜边的角度依赖于元素的宽度。
+ * 因此，当元素的内容长度不等时，想要得到斜度一致的梯形就很伤脑筋了。不过，对于宽度变化不大的多个元素（比如导航菜单）来说，这个方法还是非常管用的。在这种场景下，斜度的差异非常难以察觉。
+ */
+.box1 {
+  position: relative;
+  padding: 1rem 4rem 0;
+  justify-content: center;
+}
+.box1::before {
+  content: ''; /* 用伪元素来生成一个矩形 */
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1;
+  background: #00ccff;
+  transform: scaleY(2) perspective(.5em) rotateX(5deg);
+  transform-origin: bottom;
+}
+
+/* 左侧倾斜梯形 */
+.box2 {
+  position: relative;
+  padding: 1rem 1rem 0;
+  justify-content: flex-start;
+}
+.box2::before {
+  content: ''; /* 用伪元素来生成一个矩形 */
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1;
+  background: #00ccff;
+  transform: scaleY(2) perspective(.5em) rotateX(5deg);
+  transform-origin: bottom left;
+}
+
+/* 右侧倾斜梯形 */
+.box3 {
+  position: relative;
+  padding: 1rem 1rem 0;
+  justify-content: flex-end;
+}
+.box3::before {
+  content: ''; /* 用伪元素来生成一个矩形 */
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1;
+  background: #00ccff;
+  transform: scaleY(2) perspective(.5em) rotateX(5deg);
+  transform-origin: bottom right;
+}
