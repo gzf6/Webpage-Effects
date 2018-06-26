@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>简单的饼图</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <!-- 基于 transform 的方案 -->
+  <div class="box box1"></div>
+
+  <!-- 内联样式实现，接下来，我们就可以写一小段脚本来解析文本内容并把内联样式添加到元素上去，以实现代码的优雅性、封装抽象度、可维护性，以及（可能是）最重要的一点——可访问性 -->
+  <!-- 达到修改元素内文字即可修改饼图比例的目的 -->
+  <div class="box box2">30%</div>
+  <div class="box box2">50%</div>
+  <script>
+    function $$(selector, context) {
+      context = context || document;
+      var elements = context.querySelectorAll(selector);
+      return Array.prototype.slice.call(elements);
+    }
+    $$('.box2').forEach(function(box2) {
+      var p = box2.textContent;
+      box2.style.animationDelay = '-' + parseFloat(p) + 's';
+    });
+  </script>
+
+  <!-- svg 解决方案 -->
+  <div class="box box3">30%</div>
+  <div class="box box3">50%</div>
+  <div class="box box3">20%</div>
+  <div class="box box3">60%</div>
+  <div class="pibox box3 animated">0%</div>
+  <script>
+      function $$(selector, context) {
+        context = context || document;
+        var elements = context.querySelectorAll(selector);
+        return Array.prototype.slice.call(elements);
+      }
+      $$('.box3').forEach(function(box3) {
+        var p = parseFloat(box3.textContent);
+        var NS = "http://www.w3.org/2000/svg";
+        var svg = document.createElementNS(NS, "svg");
+        var circle = document.createElementNS(NS, "circle");
+        var title = document.createElementNS(NS, "title");
+        circle.setAttribute("r", 16);
+        circle.setAttribute("cx", 16);
+        circle.setAttribute("cy", 16);
+        circle.setAttribute("stroke-dasharray", p + " 100");
+        svg.setAttribute("viewBox", "0 0 32 32");
+        title.textContent = box3.textContent;
+        box3.textContent = '';
+        svg.appendChild(title);
+        svg.appendChild(circle);
+        box3.appendChild(svg);
+      });
+    </script>
+</body>
+</html>

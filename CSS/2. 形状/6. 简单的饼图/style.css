@@ -1,0 +1,103 @@
+/* 饼图在网页中的运用极为普遍，比如简单的统计图表、进度指示器、定时器等
+ * 
+ */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  margin: 100px auto;
+  width: 400px;
+  height: 400px;
+  font-family: "Microsoft YaHei";
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  color: #000;
+}
+
+/* 基于 transform 的方案
+ * 这个方案在结构层面是最佳选择：它只需要一个元素作为容器，而其他部分是由伪元素、变形属性和CSS 渐变来实现的。
+ * 把圆形的左右两部分指定为两种颜色，然后用伪元素覆盖上去，通过旋转来决定露出多大的扇区。
+ */
+.box1 {
+  border-radius: 50%;
+  background: yellowgreen;
+  background-image:
+    linear-gradient(to right, transparent 50%, #655 0);
+}
+.box1::before {
+  content: '';
+  display: block;
+  margin-left: 50%;
+  height: 100%;
+  border-radius: 0 100% 100% 0 / 50%;
+  background-color: inherit;
+  transform-origin: left;
+  animation: spin 3s linear infinite,
+             bg 6s step-end infinite;
+}
+/* 转50% */
+@keyframes spin {
+  to { transform: rotate(.5turn); }
+}
+/* 超过50%换背景颜色 */
+@keyframes bg { 
+  50% { background: #655; }
+}
+
+/* 内联样式实现
+ * 接下来，我们就可以写一小段脚本来解析文本内容并把内联样式添加到元素上去，以实现代码的优雅性、封装抽象度、可维护性，以及（可能是）最重要的一点——可访问性。
+ * 我们无法为伪元素设置内联样式，因此还要开动脑筋寻找对策。解决方案恰恰来源于一个看似最不沾边的地方。我们将使用上面刚刚用到的那个动画，但动画必须处于暂停状态。跟常规情形下我们让动画动起来的做法不一样，这里我们要用负的动画延时来直接跳至动画中的任意时间点，并且定格在那里。
+ * 一个负的延时值是合法的。与0s 的延时类似，它意味着动画会立即开始播放，但会自动前进到延时值的绝对值处，就好像动画在过去已经播放了指定的时间一样。因此实际效果就是动画跳过指定时间而从中间开始播放了。
+ * 因为我们的动画是暂停的，所以动画的第一帧（由负的animationdelay值定义）将是唯一显示出的那一帧。在饼图上显出的比率就是我们的 animation-delay 值在总的动画持续时间中所占的比率。
+ * 为了简化这个计算过程，我们可以设置一个长达100s的持续时间。别忘了，这里的动画是永远处在暂停状态的，因此我们指定的持续时间并不会产生其他副作用。
+ * 现在还剩最后一个问题：动画是作用在伪元素上的，但我们希望最终内联样式可以设置在.pie 元素上。不过，由于<div> 上并没有任何动画效果，我们可以用内联样式的方式为其设置animation-delay 属性，然后再在伪元素上应用animation-delay: inherit; 属性。
+ */
+.box2 {
+  position: relative;
+  line-height: 400px;
+  border-radius: 50%;
+  background: yellowgreen;
+  background-image:
+    linear-gradient(to right, transparent 50%, #655 0);
+  color: transparent;
+}
+.box2::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  display: block;
+  width: 50%; height: 100%;
+  border-radius: 0 100% 100% 0 / 50%;
+  background-color: inherit;
+  transform-origin: left;
+  animation: spin 50s linear infinite,
+             bg 100s step-end infinite;
+  animation-play-state: paused;
+  animation-delay: inherit;
+}
+
+/* svg 解决方案 */
+.box3 {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  margin: 10px;
+  transform: rotate(-90deg);
+}
+svg {
+  background: yellowgreen;
+  border-radius: 50%;
+}
+circle {
+  fill: yellowgreen;
+  stroke: #655;
+  stroke-width: 32;
+}
+@keyframes grow { to { stroke-dasharray: 100 100 } }
+
+.box3.animated circle {
+  animation: grow 2s infinite linear;
+}
