@@ -1,0 +1,44 @@
+/* 由于我们不能直接对元素本身进行模糊处理，就对一个伪元素进行处理，然后将其定位到元素的下层，它的背景将会无缝匹配<body>的背景。
+ */
+
+/**
+ * Frosted glass effect
+ */
+
+ body {
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: 0;
+  padding-top: calc(50vh - 6em);
+  font: 150%/1.6 Baskerville, Palatino, serif;
+}
+
+body, main::before {
+  background: url("http://csssecrets.io/images/tiger.jpg") 0 / cover fixed;
+}
+
+main {
+  position: relative;
+  margin: 0 auto;
+  padding: 1em;
+  max-width: 23em;
+  background: hsla(0,0%,100%,.25) border-box;
+  overflow: hidden;
+  border-radius: .3em;
+  box-shadow: 0 0 0 1px hsla(0,0%,100%,.3) inset,
+              0 .5em 1em rgba(0, 0, 0, 0.6);
+  text-shadow: 0 1px 1px hsla(0,0%,100%,.3);
+}
+
+main::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: -1; /* 防止宿主元素上的内容被遮挡 */
+  -webkit-filter: blur(20px);
+  filter: blur(20px); /* 模糊半径会从模糊逐渐变成透明 */
+  margin: -30px; /* 所以要将这个伪元素向外扩大于等于模糊半径的值，保险起见取大值，并通过宿主元素的overflo: hidden; 进行切除 */
+}
+
+blockquote { font-style: italic }
+blockquote cite { font-style: normal; }
