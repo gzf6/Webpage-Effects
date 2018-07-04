@@ -1,0 +1,74 @@
+
+.box {
+  width: 400px;
+  height: 200px;
+  margin: 20px auto;
+  background-color: #58a;
+}
+
+/* 45度角的解决方案 */
+/* 这种方案要确保元素已留出不小于折角尺寸的内边距，否则文本可能会重叠在折页部分之上。 */
+.box1 {
+  padding: 2em;
+  background:
+    /* 折角，切记把折页部分的三角形放在切角渐变之上 */
+    linear-gradient(to left bottom,transparent 50%, rgba(0,0,0,.4) 0) no-repeat 100% 0 / 2em 2em,
+    /* 切角 */
+    linear-gradient(-135deg, transparent 1.42em, #58a 0);
+}
+
+/* 其他角度的解决方案 */
+/* 需要使用三角函数进行计算 */
+.box2 {
+  padding: 2em;
+  position: relative;
+  background: #58a; /* 回退样式 */
+  background:
+    linear-gradient(-150deg,transparent 1.5em, #58a 0);;
+  border-radius: .5em;
+}
+.box2::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  background: 
+    linear-gradient(to left bottom,transparent 50%, rgba(0,0,0,.2) 0, rgba(0,0,0,.4)) 100% 0 no-repeat;
+  width: 1.73em;
+  height: 3em;
+  transform: translateY(-1.3em) rotate(-30deg);
+  transform-origin: bottom right;
+  border-bottom-left-radius: inherit;
+  box-shadow: -.2em .2em .3em -.1em rgba(0,0,0,.15);
+}
+
+/* sass与compass 的mixin版本
+@mixin folded-corner($background, $size,$angle: 30deg) {
+position: relative;
+background: $background; 
+background:
+linear-gradient($angle - 180deg,
+transparent $size, $background 0);
+border-radius: .5em;
+$x: $size / sin($angle);
+$y: $size / cos($angle);
+&::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  background: 
+    linear-gradient(to left bottom,transparent 50%, rgba(0,0,0,.2) 0,rgba(0,0,0,.4)) 100% 0 no-repeat;
+  width: $y; height: $x;
+  transform: translateY($y - $x)
+  rotate(2*$angle - 90deg);
+  transform-origin: bottom right;
+  border-bottom-left-radius: inherit;
+  box-shadow: -.2em .2em .3em -.1em rgba(0,0,0,.2);
+  }
+}
+
+调用时
+.note {
+  @include folded-corner(#58a, 2em, 40deg);
+}
+
+*/
