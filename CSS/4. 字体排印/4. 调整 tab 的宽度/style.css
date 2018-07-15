@@ -1,0 +1,28 @@
+/* 包含大量代码的网页（比如文档或教程）在样式上面对着无法回避的挑战。我们通常使用<pre> 和<code> 元素来显示代码，它们具有浏览器所赋予的默认样式：
+pre, code {
+	font-family: monospace;
+}
+pre {
+	display: block;
+	margin: 1em 0;
+	white-space: pre;
+}
+
+这远不足以解决代码展示所独有的种种挑战。这其中最大的一个问题在于，即使tab 非常适合用来缩进代码，但人们在网页中却常常有意避开tab。这是因为浏览器会把其宽度显示为 8 个字符！
+*/
+/* 一个新的CSS 属性 tab-size 可以控制这个情况。这个属性接受一个数字（表示字符数）或者一个长度值（这个不那么实用）。我们通常希望把它设置为4（表示4 个字符的宽度）或2，后者是最近更为流行的缩进尺寸 */
+
+pre { 
+  padding: .5em;
+  line-height: 1.5;
+  background: hsl(20, 50%, 95%);
+  font-family: Consolas, Monaco, monospace;
+}
+
+pre:nth-of-type(2) { tab-size: 2 }
+pre:nth-of-type(3) { tab-size: 4 }
+pre:nth-of-type(4) { tab-size: 0 }
+
+code {
+  font: inherit;
+}

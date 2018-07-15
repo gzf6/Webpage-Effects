@@ -1,0 +1,19 @@
+/* 抛开以前那种给每一行套元素再加背景的做法，我们换一种思路来重
+新考虑这个问题。为什么不对整个元素设置统一的背景图像，一次性加上所
+有的斑马条纹呢？乍听起来这好像是个糟糕的点子，但别忘了，我们可以在
+CSS 中用渐变直接生成背景图像，而且可以用em 单位来设定背景尺寸，这
+样背景就可以自动适应font-size 的变化了。 */
+/* 首先，我们需要运用“条纹背景”一节中所描述的方法，创建出水平条纹背景。它的 background-size 需要设置为line-height 的两倍，因为每个背景贴片需要覆盖两行代码。 */
+/* ，这段样式正好可以达成我们想要的斑马条纹效果！因为我们是用半透明色来生成条纹的，所以在改变背景色时，斑马条纹仍然可以正常显示。这个方法总体来说是十分灵活的，唯一可能破坏效果的情况可能就是在改变line-height 时忘了相应地调整background-size。 */
+pre { 
+	padding: .5em;
+	line-height: 1.5;
+	background: hsl(20, 50%, 95%);
+  background-image: 
+    linear-gradient(rgba(120,0,0,.1) 50%, transparent 0);
+	background-size: auto 3em;
+	background-origin: content-box;
+	font-family: Consolas, Monaco, monospace;
+}
+
+code { font: inherit }

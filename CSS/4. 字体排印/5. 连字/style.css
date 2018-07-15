@@ -1,0 +1,22 @@
+/* 原有的fontvariant被升级成了一个简写属性，由很多新的展开式属性组合而成。其中之一叫作font-variant-ligatures，专门用来控制连字效果的开启和关闭。如果要启用所有可能的连字，需要同时指定三个标识符。 */
+
+body {
+  font: 200%/1.6 "Adobe Caslon Pro", Baskerville, serif;
+  font-variant-ligatures: 
+    common-ligatures 
+    discretionary-ligatures 
+    historical-ligatures;
+}
+
+/* 
+  这个属性是可继承的。比如，发现酌情连字可能会干扰到正常文字的阅读效果时，你可能希望把它单独关掉。在这种情况下，你可能只想开启通用连字：
+  font-variant-ligatures: common-ligatures;
+
+  你甚至可以显式地把其他两种连字关闭：
+  font-variant-ligatures: 
+    common-ligatures
+    no-discretionary-ligatures
+    no-historical-ligatures;
+*/
+
+/* font-variant-ligatures 还接受none 这个值，它会把所有的连字效果都关掉。千万不要使用none，除非你绝对清楚自己是在做什么。如果要把fontvariant-ligatures 属性复位为初始值，应该使用normal 而不是none。 */
