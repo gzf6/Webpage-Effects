@@ -1,9 +1,46 @@
-/* 原有的fontvariant被升级成了一个简写属性，由很多新的展开式属性组合而成。其中之一叫作font-variant-ligatures，专门用来控制连字效果的开启和关闭。如果要启用所有可能的连字，需要同时指定三个标识符。 */
+/* 在文学作品的字体排印中，你会发现简写的& 符号倍受推崇。没有其他字符可以像精心设计的& 那样迅速传递出优雅的气质。所有网站都殚精竭虑，试图找出一种能够体现& 字符之美的最佳字体。不过，可以显示出优美& 字符的字体往往并不适用于页面中的其他文本。毕竟对于标题来说，真正美丽而优雅的效果正是来源于清爽的无衬线字体与华丽的衬线 & 符号之间的对比。 */
 
-body {
-  font: 200%/1.6 "Adobe Caslon Pro", Baskerville, serif;
-  font-variant-ligatures: 
-    common-ligatures 
-    discretionary-ligatures 
-    historical-ligatures;
+/* 解决方案
+ * 我们通常会在font-family 声明中同时指定多个字体（即字体队列）。这样，即使我们指定的最优先字体不可用，浏览器还可以回退到其他符合整体设计风格的字体。但是，很多开发者都忽略了一点：这个机制对单个字符来说也是有效的。如果某款字体可用，但仅包括某几个字符，那它就只会用来显示这几个字符；而在显示其他字符时，浏览器就会回退到其他字体。这个规则对本地字体和通过@font-face 规则引入的嵌入字体都是有效的。
+ */
+
+/* 
+ * 在这个规则之下，如果有一款字体只包含一个字符（你肯定猜到是哪个了吧），那这款字体将只用于显示这个字符，其他字符会由字体队列中排在第二位、第三位或更后面的字体来显示。因此，只美化& 符号的方法就浮出水面了：创建一种只包含& 字形的Web 字体，通过@font-face 将其引入网页，然后把它排在字体队列中的第一位
+ */
+
+/* 
+  这个方法比较灵活，但如果我们只想用系统内建字体中的某一款来美化 & 符号，这个方法就不够理想了：不仅生成字体文件很麻烦，还会增加一个额外的 HTTP 请求如果你看中的这款字体不允许拆解使用，那你可能还要面对版权上的问题。有没有一种办法可以用本地字体来实现这种效果？
+ */
+ 
+/* 以下方法需测试浏览器的兼容性 */
+
+/* local() 函数，用于指定本地字体的名称 */
+/* 
+  unicode-range 描述符，只在@font-face 规则内部生效（因此这里用了描述符这个术语；它   并不是一个CSS 属性。它可以把字体作用的字符范围限制在一个子集内。它对本地字体和远程字体都是有效的。某些智能的浏览器甚至可以做到当网页中的所有字符都用不到远程字体时就不去下载！ 它的语法是基于“Unicode 码位”的，而不是基于字符的字面形态。因此，在使用之前，你需要查出你想指定的这些字符的十六进制码位。有不少网上工具可以做到，你也可以在控制台试试下面这句JavaScript 代码：
+    "&".charCodeAt(0).toString(16); // 返回 26
+  （如果要在Mac OS X 中查出某款字体的“PostScript 名称”，可以在字体薄程序中选中该字体，然后按⌘I。）
+  这样你就得到了字符的十六进制码位，然后需要在码位前面加上U+ 作为前缀。这样一来，我们终于指定了一个字符。
+  如果你想指定一个字符区间，还是要加上U+ 前缀，比如U+400-4FF。实际上对于这个区间来说，你还可以使用通配符，以这样的方式来写：U+4??。同时指定多个字符或多个区间也是允许的，把它们用逗号隔开即可，比如U+26, U+4??, U+2665-2670。
+ */
+
+@font-face {
+  font-family: Ampersand;
+  /* 为了显示斜体，不去指定字体的家族名（family name），而是直接指定字体中我们想要的单个风格 / 字重所对应的“PostScript 名称” */
+  src: local('Baskerville-Italic'), 
+       local('GoudyOldStyleT-Italic'), 
+       local('Garamond-Italic'), 
+       local('Palatino-Italic');
+  unicode-range: U+26;
 }
+.box1 {
+  margin: 50px auto;
+  width: 200px;
+  height: 100px;
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Ampersand, Helvetica, sans-serif;
+}
+
+/* 向 Drew McLellan（http://allinthehead.com）脱帽致敬，感谢他提出这个效果的最初版本（http://24ways.org/2011/creating-custom-font-stacks-withunicode-range）。 */
