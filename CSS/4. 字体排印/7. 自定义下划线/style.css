@@ -1,0 +1,33 @@
+.box1,.box2,.box3 {
+  margin: 50px auto;
+  padding: 5px;
+  width: 200px;
+  height: 100px;
+  background-color: lightblue;
+}
+
+/* 设置text-shadow，颜色与背景一致，可以实现下划线避开文字的效果 */
+.box1 span {
+  background: linear-gradient(gray, gray) no-repeat;
+  background-size: 100% 1px;
+  background-position: 0 1.15em;
+  text-shadow: .05em 0 lightblue, -.05em 0 lightblue;
+}
+
+/* 虚线下划线 */
+/* 可以通过色标的百分比位置值来微调虚线的虚实比例，还可以通过background-size 来改变虚线的疏密。 */
+.box2 span {
+  background: linear-gradient(90deg,gray 66%, transparent 0) repeat-x;
+  background-size: .2em 2px;
+  background-position: 0 1em;
+  text-shadow: .05em 0 lightblue, -.05em 0 lightblue;
+}
+
+/* 波浪下划线，通过background-size 来改变波浪大小 */
+.box3 span {
+  background: linear-gradient(-45deg, transparent 40%, red 0, red 60%, transparent 0) 0 1em,
+              linear-gradient(45deg, transparent 40%, red 0, red 60%, transparent 0) .1em 1em;
+  background-repeat: repeat-x;
+  background-size: .35em .2em;
+  text-shadow: .05em 0 lightblue, -.05em 0 lightblue;
+}
