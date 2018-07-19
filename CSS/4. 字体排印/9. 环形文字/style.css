@@ -1,0 +1,38 @@
+/* firefox 测试有效 */
+/* 尽管目前还没有更好的纯 CSS 实现方法，但我们其实可以借助一点内联 SVG 来轻松解决这个难题。SVG 原生支持以任意路径排队的文字，而圆形只不过是一种特定的路径而已 */
+/* 在SVG 中，让文本按照路径排列的基本方法就是用一个<textPath>元素来包裹住这段文本， 再把它们装进一个<text> 元素中。这个<textPath> 元素还需要在它的ID 属性中引用一个<path> 元素，然后就可以用这个<path> 元素来定义我们想要的路径 */
+/* 在内联SVG 内部的文本同样可以继承绝大多数字体样式（不包括line-height，因为它会由SVG 另行指定），因此我们完全不需要担心字体问题，就像处理外部的SVG 图像时一样。 */
+body {
+  font: bold 120% Helvetica, sans-serif;
+}
+
+/* 自己写svg */
+.box {
+  width: 30em;
+  height: 30em;
+  margin: 4em auto 0;
+}
+.box svg {
+  display: block;
+  overflow: visible;
+  transition: 10s linear transform;
+}
+.box svg:hover { transform: rotate(-2turn); }
+.box text { fill: currentColor }
+.box path { fill: none; }
+
+
+/* 脚本处理svg */
+.circular {
+  width: 30em;
+  height: 30em;
+  margin: 4em auto 0;
+}
+.circular svg {
+  display: block;
+  overflow: visible;
+  transition: 10s linear transform;
+}
+.circular svg:hover { transform: rotate(-2turn); }
+.circular text { fill: currentColor }
+.circular path { fill: none; }

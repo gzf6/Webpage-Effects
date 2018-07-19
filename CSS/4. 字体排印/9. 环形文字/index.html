@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>环形文字</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <!-- 请注意我们是用viewBox 来定义它的单位的， 而不是用 width 和 height 属性。这允许我们不需要指定一个固定的尺寸就可以设置坐标系统和图形的宽高比。这个写法不仅更加紧凑，还可以节省几行CSS 代码，因为我们已经不需要对这个<svg> 元素应用值为100% 的宽度和高度了：它自己就可以自动地适应外层容器的尺寸。 -->
+  <div class="box">
+    <svg viewBox="0 0 100 100">
+      <path d="M 0,50 a 50,50 0 1,1 0,1 z"
+            id="circle" />
+      <text><textPath xlink:href="#circle">
+        The only way to get rid of a temptation is to yield to it.
+      </textPath></text>
+    </svg>
+  </div>
+
+  <!-- 用脚本处理 -->
+  <div class="circular">
+    The only way to get rid of a temptation is to yield to it.
+  </div>
+  <script src="./main.js"></script>
+</body>
+</html>
