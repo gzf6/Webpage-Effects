@@ -1,0 +1,152 @@
+/* 在网页中，对文字进行艺术加工已经变得非常普遍了，比如凸版印刷效果，当鼠标悬停时的模糊效果，浮雕（伪3D）效果，等等。要达成这些效果，我们往往会用到一系列精心排列的文本投影，并且需要明白我们的眼睛是如何工作的，因为这些手段往往建立在视错觉的基础上 */
+/* leaverou.github.io/contrast-ratio 可以测试对比度 */
+
+.box {
+  margin: 50px auto;
+  padding: 5px;
+  width: 300px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* 凸版印刷效果
+ * 这种效果尤其适用于中等亮度背景配上深色文字的场景；但它也可用于深色底、浅色字的场景，只要文字不是黑色并且背景不是纯黑或白就行。
+ * 出现在底部的浅色投影（或者出现在顶部的暗色投影）会让人产生物体是凹进平面内的错觉。
+ * 出现在底部的暗色投影（或者出现在顶部的浅色投影）会让人产生物体是凸起平面内的错觉。
+ */
+/* 深色背景浅色字，底部加浅色阴影 */
+.box1 {
+  background: hsl(210, 13%, 60%);
+  color: hsl(210, 13%, 30%);
+  text-shadow: 0 1px 1px hsla(0,0%,100%,.8);
+  /* 大字体使用
+  text-shadow: 0 .03em .03em hsla(0,0%,100%,.8); 
+  */
+}
+/* 浅色背景深色字，顶部加深色阴影 */
+.box2 {
+  background: hsl(210, 13%, 40%);
+  color: hsl(210, 13%, 75%);
+  text-shadow: 0 -1px 1px black;
+  /* 大字体使用
+  text-shadow: 0 .03em .03em #000; 
+  */
+}
+
+
+/* 空心字效果 */
+/* 多个text-shadow加少量偏移 */
+.box3 {
+  background: deeppink;
+  color: white;
+  text-shadow: 1px 1px black, -1px -1px black,
+               1px -1px black, -1px 1px black;
+}
+/* 重叠多层轻微模糊的投影来模拟描边。这种方法不需要设置偏移量，但模糊算法消耗资源 */
+.box4 {
+  background: deeppink;
+  color: white;
+  text-shadow: 0 0 1px black, 0 0 1px black,
+               0 0 1px black, 0 0 1px black,
+               0 0 1px black, 0 0 1px black;
+}
+/* 不幸的是，我们需要的描边越粗，这两种方案产生的结果就越差 */
+/* SVG 方案，不够理想，但视觉效果最好 */
+.box5 {
+  font: 500%/1 Rockwell, serif;
+  background: deeppink;
+  color: white;
+}
+.box5 text {
+  fill: currentColor;
+}
+.box5 svg { overflow: visible }
+.box5 use {
+  stroke: black;
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+
+
+/* 文字外发光效果 */
+/* hover时发光 */
+.box6 {
+  background: #203;
+}
+.box6 a{
+  color: white;
+  transition: 1s;
+}
+.box6 a:hover {
+  text-shadow: 0 0 .1em, 0 0 .3em;
+}
+/* hover时文字本身隐藏，只留阴影，造成文字慢慢模糊效果 */
+.box7 {
+  background: #203;
+}
+.box7 a{
+  color: white;
+  transition: 1s;
+}
+.box7 a:hover {
+  /* 不支持该属性的浏览器依然可以正常显示文字，只是没了模糊效果 */
+  filter: blur(.1em);
+}
+
+
+/* 文字凸起效果 */
+.box8 {
+  background: #58a;
+  color: white;
+  font-size: 2em;
+  text-shadow: 0 1px hsl(0,0%,85%),
+               0 2px hsl(0,0%,80%),
+               0 3px hsl(0,0%,75%),
+               0 4px hsl(0,0%,70%),
+               0 5px hsl(0,0%,65%),
+               0 5px 10px black;
+}
+/* SCSS 预处理器
+@mixin text-3d($color: white, $depth: 5) {
+  $shadows: ();
+  $shadow-color: $color;
+  @for $i from 1 through $depth {
+    $shadow-color: darken($shadow-color, 10%);
+    $shadows: append($shadows,
+                0 ($i * 1px) $shadow-color, comma);
+  }
+  color: $color;
+  text-shadow: append($shadows,
+                0 ($depth * 1px) 10px black, comma);
+}
+.box8 { @include text-3d(#eee, 4); }
+ */
+
+/* 复古标志牌 */
+.box9 {
+  font-size: 2em;
+  color: white;
+  background: hsl(0,50%,45%);
+  text-shadow: 1px 1px black, 2px 2px black,
+               3px 3px black, 4px 4px black,
+               5px 5px black, 6px 6px black,
+               7px 7px black, 8px 8px black;
+}
+/* SCSS
+@function text-retro($color: black, $depth: 8) {
+  $shadows: (1px 1px $color,);
+  @for $i from 2 through $depth {
+    $shadows: append($shadows,
+                ($i*1px) ($i*1px) $color, comma);
+  }
+  @return $shadows;
+}
+.box9 {
+  color: white;
+  background: hsl(0,50%,45%);
+  text-shadow: text-retro();
+}
+*/
