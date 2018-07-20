@@ -1,0 +1,47 @@
+
+.box {
+  width: 500px;
+  min-height: 200px;
+  margin: 20px auto;
+  padding: 5px;
+  background-color: lightblue;
+  color: #000;
+}
+
+/* 扩张热区最简单的办法是为它设置一圈透明边框，因为鼠标对元素边框的交互也会触发鼠标事件，这一点是描边和投影所不及的。 */
+/* 这个方法很管用。不过好景不长，当你需要给按钮加上真正的边框效果时，会发现按钮仅有的那道边框已经被我们挪作他用了。怎么办？很简单，可以用内嵌投影来模拟出一道（实色）边框. */
+/* 边框方案 */
+.box1 div {
+  display: flex; align-items: center; justify-content: center;
+  width: 5em;
+  height: 5em;
+  background-color: yellowgreen;
+  border-radius: 100%;
+  border: 10px solid transparent;
+  background-clip: padding-box;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.3) inset;
+}
+
+/* 但如果把内嵌投影和（常规的）外部投影组合起来，将会得到一个怪异的效果，因为外部投影是绘制在 border box 外部的 */
+/* 这个解决方案在其他方面也不够完美：边框会影响布局，而且在某些场景下我们可能根本无法利用边框。那该怎么改进呢？我们放弃边框，然后改用另外一个特性来实现：伪元素同样可以代表其宿主元素来响应鼠标交互 */
+/* 伪元素方案 */
+
+.box2 div {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  width: 5em;
+  height: 5em;
+  background-color: yellowgreen;
+  border-radius: 100%;
+  border: 1px solid rgba(0,0,0,.3);
+  cursor: pointer;
+}
+.box2 div::before {
+  content: '';
+  position: absolute;
+  top: -10px; right: -10px;
+  bottom: -10px; left: -10px;
+}
+
+/* 只要有任何一个伪元素可供利用，这个方法就可以发挥作用，也不会干扰其他任何效果。这个基于伪元素的解决方案极为灵活，我们基本上可以把热区设置为任何想要的尺寸、位置或形状，甚至可以脱离元素原有的位置！ */
