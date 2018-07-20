@@ -1,0 +1,19 @@
+
+.box {
+  width: 300px;
+  min-height: 200px;
+  margin: 20px auto;
+  padding: 5px;
+  background-color: #58a;
+  color: #fff;
+}
+
+/* 1. 提示禁用状态 */
+.box1 button:disabled, [disabled], [aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* 2. 隐藏鼠标光标，应用场景一般为公共触摸屏，如公共场所的信息查询台 */
+.box2 {
+  cursor: none;
+}
