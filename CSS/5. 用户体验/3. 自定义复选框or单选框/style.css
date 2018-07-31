@@ -1,0 +1,81 @@
+/* 
+ * 在选择符（第三版）（http://w3.org/TR/css3-selectors）中，我们得到了一个新的伪类:checked。这个伪类只在复选框被勾选时才会匹配，不论这个勾选状态是由用户交互触发，还是由脚本触发。
+ * 如果直接对复选框设置样式，那么这个伪类并不实用，因为（前面已经交待过了）没有多少样式能够对复选框起作用。不过，我们倒是可以基于复选框的勾选状态借助组合选择符来给其他元素设置样式。
+ * 其实有一个元素总是跟复选框形影不离、息息相关，它就是<label>（标签元素）。当<label> 元素与复选框关联之后，也可以起到触发开关的作用。
+ * 由于label 不是复选框那样的替换元素，我们可以为它添加生成性内容（伪元素），并基于复选框的状态来为其设置样式。然后，就可以把真正的复选框隐藏起来（但不能把它从tab 键切换焦点的队列中完全删除），再把生成性内容美化一番，用来顶替原来的复选框！
+ */
+
+/* 为label的伪元素添加简单的css样式，你可以改变成任何样式，甚至用图片替换 */
+.input1 input[type="checkbox"] + label::before {
+  content: '\a0'; /* 不换行空格 */
+  display: inline-block;
+  vertical-align: .2em;
+  width: .8em;
+  height: .8em;
+  margin-right: .2em;
+  border-radius: .2em;
+  background: silver;
+  text-indent: .15em;
+  line-height: .65;
+}
+
+/* 给label的伪元素的勾选状态加上不同的样式 */
+.input1 input[type="checkbox"]:checked + label::before {
+  content: '\2713';
+  background: yellowgreen;
+}
+
+/* 隐藏复选框 */
+.input1 input[type="checkbox"] {
+  position: absolute;
+  clip: rect(0,0,0,0);
+}
+
+/* 聚焦状态 */
+.input1 input[type="checkbox"]:focus + label::before {
+  box-shadow: 0 0 .1em .1em #58a;
+}
+/* 禁选状态 */
+.input1 input[type="checkbox"]:disabled + label::before {
+  background: gray;
+  box-shadow: none;
+  color: #555;
+}
+
+/* 
+ * 你甚至可以用过渡或动画来让各个状态之间的切换更加平滑，或者脑子一热创建一个拟物化的开关。这方面的可能性真的是无穷无尽。
+ * 尽管可能性是无穷无尽的，但仍然要避免把复选框设置为圆形：绝大多数用户会把圆形的开关理解为单选框。这个道理也适用于方形的单选框 
+*/
+
+/* 
+ * 向Ryan Seddon（http://thecssninja.com）脱帽致敬，感谢他最先提出这个效果。这个技巧现在被大家称作复选框hack（http://thecssninja.com/css/custom-inputs-using-css）。Ryan 曾用这个创意实现了各种需要保持状态的UI 组件（http://labs.thecssninja.com/bootleg），比如模态对话框、下拉菜单、标签页、跑马灯等，不过像这样滥用复选框很容易导致可访问性上的问题。
+*/
+
+/* 开关式按钮 */
+/* 
+ * 利用“复选框hack”的思路来模拟它。开关式按钮与复选框的行为十分相似，可以用来切换某个选项的开关状态：启用时，它是被按下的状态；停用时，它就是浮起的状态。在语义上，开关式按钮和复选框并没有本质上的差别，因此可以放心地使用这个技巧，不用担心语义上有问题。
+ */
+
+/* 如果想用这个技巧来生成开关式按钮，其实只需要把label 设置为按钮的样式即可，并不需要用到伪元素 */
+
+.input2 input[type="checkbox"] {
+  position: absolute;
+  clip: rect(0,0,0,0);
+  }
+.input2 input[type="checkbox"] + label {
+  display: inline-block;
+  padding: .3em .5em;
+  background: #ccc;
+  background-image: linear-gradient(#ddd, #bbb);
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: .3em;
+  box-shadow: 0 1px white inset;
+  text-align: center;
+  text-shadow: 0 1px 1px white;
+  }
+.input2 input[type="checkbox"]:checked + label,
+.input2 input[type="checkbox"]:active + label {
+  box-shadow: .05em .1em .2em rgba(0,0,0,.6) inset;
+  border-color: rgba(0,0,0,.3);
+  background: #bbb;
+}
