@@ -1,0 +1,18 @@
+div {
+  margin: 100px auto;
+  padding: 0 .5em;
+  width: 200px;
+  height: 400px;
+  overflow: auto;
+  border-radius: 8px;
+  /* 用一个径向渐变在顶部/底部添加一条阴影，一层白色渐变遮罩层在到达顶部/底部时遮住阴影 */
+  background: 
+    linear-gradient(white 15px, hsla(0,0%,100%,0)) 0 0 / 100% 50px,
+    radial-gradient(at top, rgba(0,0,0,.2), transparent 70%) 0 0 / 100% 15px,
+    linear-gradient(to top, white 15px, hsla(0,0%,100%,0)) bottom / 100% 50px,
+    radial-gradient(at bottom, rgba(0,0,0,.2), transparent 70%) bottom / 100% 15px;
+  background-repeat: no-repeat;
+  background-attachment: local, scroll,local, scroll;
+}
+
+/* 向Roman Komarov(http://kizu.ru/en)脱帽致敬，感谢他提出这个效 果的一个早期版本(http://kizu.ru/en/fun/shadowscroll)。他的版本采用了伪 元素和定位，而没有使用背景图像。在某些场景下这可能是个不错的备选 方案。 */
