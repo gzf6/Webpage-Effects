@@ -1,0 +1,77 @@
+div.string {
+  margin: 100px auto;
+  padding: 10px;
+  width: 500px;
+}
+
+
+/* css resize方案 */
+/* 这个属性实际上适用于任何元素，只要它的overflow 属性不是 visible。对几乎所有元素来说，resize 默认都是设置为none 的，即禁用调整大小的特性。除了both 之外，这个属性接受的值还有horizontal 和vertical，它们可以限制元素调整大小的方向。 */
+.image-slider {
+  margin: 100px auto;
+  width: 500px;
+  position:relative;
+  display: block;
+}
+.image-slider > div {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 50%; /* 初始宽度 */
+  max-width: 100%;
+  height: inherit;
+  overflow: hidden; /* 让它可以裁剪图片 */
+  resize: horizontal;
+}
+/* 利用伪元素制作调节手柄 */
+.image-slider > div::before { 
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 12px; height: 12px;
+  padding: 5px;
+  background:
+    linear-gradient(-45deg, white 50%, transparent 0);
+  background-clip: content-box;
+  cursor: ew-resize;
+}
+.image-slider img { 
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* 元素内的文字及其子元素将不会被选中 */
+  user-select: none; 
+}
+.image-slider > div > img {
+  width: auto;
+}
+
+
+/* 范围输入控件方案 */
+.image-slider2 {
+  position:relative;
+  display: inline-block;
+}
+.image-slider2 > div {
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 50%;
+  overflow: hidden;
+}
+.image-slider2 img {
+  display: block;
+  user-select: none;
+}
+.image-slider2 input {
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  width: 100%;
+  margin: 0;
+  /* 美化方案1 */
+  filter: contrast(.5);
+  mix-blend-mode: luminosity;
+  /* 美化方案2 */
+  /* width: 50%;
+  transform: scale(2);
+  transform-origin: left bottom; */
+}

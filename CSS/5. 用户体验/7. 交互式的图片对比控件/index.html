@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>交互式的图片对比控件</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="string">
+    <p>有时，我们需要展示两张图片的外观差异，通常是“之前和之后”形式的对比。例如，照片在经过一系列操作前后的对比效果，美容网站上某种护肤疗法前后的对比效果，某个地区在灾难事件前后的现场对比结果</p>
+    <p>向 Dudley Storey（<a href="http://demosthenes.info">http://demosthenes.info</a>）脱帽致敬，感谢他提出这个解决方案的第一个版本（<a href="http://demosthenes.info/blog/819/A-Before-And-After-Image-Comparison-Slide-Control-in-HTML5">http://demosthenes.info/blog/819/A-Before-And-After-Image-Comparison-Slide-Control-in-HTML5</a>。</p>
+  </div>
+  <!-- css resize方案 -->
+  <div class="image-slider">
+    <div>
+      <img src="./img/1.png" alt="Before">
+    </div>
+    <img src="./img/2.png" alt="After">
+  </div>
+  <!-- 范围输入控件方案 -->
+  <div class="image-slider2">
+    <img src="./img/1.png" alt="Before">
+    <img src="./img/2.png" alt="After">
+  </div>
+  <!-- 经过范围输入控件改造后的代码 -->
+  <!-- <div class="image-slider2">
+    <div>
+      <img src="adamcatlace-before.jpg" alt="Before" />
+    </div>
+    <img src="adamcatlace-after.jpg" alt="After" />
+    <input type="range" />
+  </div> -->
+  <script>
+    function $$(selector, context) {
+      context = context || document;
+      var elements = context.querySelectorAll(selector);
+      return Array.prototype.slice.call(elements);
+    }
+
+    $$('.image-slider2').forEach(function (slider) {
+      // 创建附加的div元素，并用它包住第一个图片元素
+      let div = document.createElement('div');
+      let img = slider.querySelector('img');
+      slider.insertBefore(img, div);
+      div.appendChild(img);
+      // 创建滑块
+      let range = document.createElement('input');
+      range.type = 'range';
+      range.oninput = function () {
+        div.style.width = this.value + '%';
+      };
+      slider.appendChild(range);
+    });
+  </script>
+</body>
+
+</html>
