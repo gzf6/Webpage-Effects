@@ -1,0 +1,26 @@
+div.intro {
+  margin: 100px auto;
+  padding: 0 .5em;
+  width: 500px;
+}
+
+/**
+ * Intrinsic sizing
+ */
+
+figure {
+  max-width: 300px; /* 回退机制 */
+  max-width: min-content;
+  margin: auto;
+}
+
+figure > img { max-width: inherit }
+
+/* 对于现代浏览器来说，后一条 max-width 声明会覆盖前一条。如果 􏰕gure的尺寸是由内部因素决定时，第二条规则中的max-width: inherit 就不会生效了。 */
+
+/* Basic styling */
+
+figure {
+  padding: 10px;
+  border: 1px solid silver;
+}

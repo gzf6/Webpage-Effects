@@ -44,12 +44,12 @@
 
     $$('.image-slider2').forEach(function (slider) {
       // 创建附加的div元素，并用它包住第一个图片元素
-      let div = document.createElement('div');
-      let img = slider.querySelector('img');
+      var div = document.createElement('div');
+      var img = slider.querySelector('img');
       slider.insertBefore(img, div);
       div.appendChild(img);
       // 创建滑块
-      let range = document.createElement('input');
+      var range = document.createElement('input');
       range.type = 'range';
       range.oninput = function () {
         div.style.width = this.value + '%';
