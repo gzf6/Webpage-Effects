@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>精确控制表格列宽</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="intro">
+    <p>表格列宽根据其内容进行调整，即使我们显式地指定了width，也只能起到类似提示的作用。</p>
+    <p>解决方案来自于CSS 2.1 中一个鲜为人知的属性，叫作table-layout。它的默认值是auto，其行为模式被称作自动表格布局算法，也就是我们最为熟悉的表格布局行为。不过，它还接受另外一个值fixed，这个值的行为要明显可控一些。它把更多的控制权交给了网页开发者（没错，就是你），只把较少的控制权留给渲染引擎。我们设置的（宽度）样式会直接起作用，而不仅仅被视为一种提示；同时，溢出行为（包括text-overflow）与其他元素行为也是一样的，因此表格的内容将只能影响表格行的高度了。</p>
+    <p>这种固定表格布局算法不仅更容易预测、便于使用，同时也明显更快。因为表格的内容并不会影响单元格的宽度，所以在页面的下载过程中，表格不需要频繁重绘</p>
+    <p>在使用时，我们只需要对&lt;table&gt;元素或其他具有display: table 样式的元素应用这个属性即可。请注意，为了确保这个技巧奏效，需要为这些表格元素指定一个宽度（哪怕是100%）。同样，为了让text-overflow:ellipsis
+      发挥作用，我们还需要为那一列指定宽度。
+    </p>
+    <p>向 Chris Coyier（http://css-tricks.com）脱帽致敬，感谢他提出这个技巧（http://css-tricks.com/􀂿xing-tables-long-strings）。</p>
+  </div>
+
+  <section>
+    <h1>With table-layout: auto</h1>
+    <div>
+      <table>
+        <tr>
+          <td>If we don’t…</td>
+          <td>specify a cell width, they will be assigned one that depends on their contents. Notice how the cell with the
+            more content here is much wider.</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td>If we don’t…</td>
+          <td>specify a cell width, they will be assigned one that depends on their contents. Notice how the cell with the
+            more content here is much wider.</td>
+        </tr>
+        <tr>
+          <td>All rows take part in calculating the widths, not just the first one.</td>
+          <td>Notice how the dimensions here are different than the previous example.</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td style="width: 1000px">If we specify a width, it will not always be followed. I have a width of <code>1000px</code>…</td>
+          <td style="width: 2000px">…and I have a width of <code>2000px</code>. Because there’s not enough space for <code>3000px</code>,
+            they are reduced proportionally, to 33.3% and 66.6% of the total width.</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td>If we prevent word wrapping, the table can become so wide it grows beyond its container.</td>
+          <td class="preformatted">…and <code>text-overflow: ellipsis</code> doesn’t help either.</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td>Large images and blocks of code can also cause the same issue.</td>
+          <td><img src="http://lea.verou.me/book/panoramic.jpg" /></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h1>With table-layout: fixed</h1>
+    <div></div>
+  </section>
+
+  <script>
+    document.querySelector('section + section div').innerHTML = document.querySelector('section:first-of-type div').innerHTML;
+  </script>
+</body>
+
+</html>
