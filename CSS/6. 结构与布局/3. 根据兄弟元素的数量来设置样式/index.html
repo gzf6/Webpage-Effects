@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>根据兄弟元素的数量来设置样式</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="intro">
+    <p>在某些场景下，我们需要根据兄弟元素的总数来为它们设置样式。最常见的场景就是，当一个列表不断延长时，通过隐藏控件或压缩控件等方式来节省屏幕空间，以此提升用户体验。下面列出了一些典型案例：</p>
+    <p>1.电子邮件列表或包含文本内容的类似列表。如果列表中只有少量列表项，我们可以为第一项展示出多行预览文字；当列表项不断增加时，需要逐渐减少每一项的预览行数；当列表的总长度超出整个视口的高度时，可能会把预览文字完全隐藏，并把按钮变小，以此避免用户对页面的滚动。</p>
+    <p>2.待办事项应用程序。当列表中的事项较少时，我们可以用一个较大的字号来显示所有事项；随着事项的数量不断增加，我们会不断减小字号来显示每个事项。</p>
+    <p>3.调色板应用程序，每个色块上都显示出配套的控件。当色块的数量不断增加时，它们所占据的空间也会相应增加，此时我们可能希望色块的控件变得紧凑一些。</p>
+    <p>包含多个 &lt;textarea&gt; 元素的应用程序。每当我们添加一个新的&lt;textarea&gt; 元素，所有元素都会同步缩小（类似于 <a href="https://bytesizematters.com">bytesizematters.com</a>
+      的效果）。</p>
+    <p></p>
+  </div>
+
+  <ul class="palette">
+    <li>
+      <div class="color-options">
+        <a class="add" href="#">Add</a>
+        <a class="delete" href="#">Delete</a>
+      </div>
+    </li>
+  </ul>
+
+  <script>
+    function $$(expr, con) { return [].slice.call((con || document).querySelectorAll(expr)); }
+
+    var colors = [
+      '#D6E055', // Agave
+      '#082323', '#E6E2AF', '#A7A37E', '#EFECCA', '#046380', // Sandy stone beach
+      '#1C171D', '#FEE169', '#CDD452', '#F9722E', '#C9313D', // Sushi Maki
+      '#2E95A3', '#50B8B4', '#C6FFFA', '#E2FFA8'  // Agave
+    ],
+      palette = document.querySelector('.palette'),
+      template = palette.firstElementChild;
+
+    function addColor(template) {
+      var li = template.cloneNode(true);
+      var color = colors.pop();
+      colors.unshift(color);
+      li.style.background = color;
+      palette.insertBefore(li, template.nextSibling);
+    }
+
+    palette.onclick = function (evt) {
+      var button = evt.target;
+
+      if (button.className == 'add') {
+        addColor(button.parentNode.parentNode);
+      }
+      else if (button.className == 'delete') {
+        var li = button.parentNode.parentNode;
+        li.parentNode.removeChild(li);
+      }
+    }
+  </script>
+
+</body>
+
+</html>
