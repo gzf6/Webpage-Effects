@@ -1,30 +1,62 @@
-.intro {
-  padding: 1em;
-}
-/**
- * Fluid background, fixed content
- */
- 
-/* 左、右 padding 设置 为容器的一半 减去 内容的一半，注意calc中的运算符必须用空格分开 */
-header, section, footer {
-	padding: 1em calc(50% - 350px);
-}
 
-footer {
-	background: #333;
-	color: white;
+/* 绝对定位法 */
+html {
+  width: 100vw;
+  height: 100vh;
 }
-
-header {
-	background: orange;
-	color: white;
-}
-
-section + section {
-	background: #eee;
-}
-
 body {
-	margin: 0;
-	font: 100%/1.5 sans-serif;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font: 100%/1.5 sans-serif;
 }
+
+.box1 {
+  position: relative;
+  width: 50vw;
+  height: 50vh;
+  background: #fb3;
+}
+main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #655;
+  color: white;
+}
+
+h1 {
+  margin: 0 0 .2em;
+  font-size: 150%;
+}
+
+p {
+  margin: 0;
+}
+
+/* 基于视口单位的解决方案，只适用于在视口中居中的场景 */
+/* main {
+  width: 18em;
+  padding: 1em 1.5em;
+  margin: 50vh auto 0; 
+  transform: translateY(-50%);
+  background: #655;
+} */
+
+/* flexbox方案，这是毋庸置疑的最佳解决方案 */
+/* 请注意，当我们使用Flexbox时，margin: auto不仅在水平方向上将元素居中，垂直方向上也是如此。 */
+.box2 {
+  position: relative;
+  width: 50vw;
+  height: 50vh;
+  background: #fb3;
+  min-height: 50vh;
+  margin-top: 3em;
+  display: flex;
+}
+.box2 main {
+  margin: auto;
+}
+
+/* 借助 Flexbox 规范所引入的 align-items 和 justify-content 属性,我们也可以实现居中，但margin: auto方法要更加优雅一些，并且同时起到了回退的作用。*/

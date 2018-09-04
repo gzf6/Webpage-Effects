@@ -5,38 +5,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>满幅的背景，定宽的内容</title>
+  <title>垂直居中</title>
   <link rel="stylesheet" href="./style.css">
   <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
-  <div class="intro">
-    <p>在过去的几年间，有一种网页设计手法逐渐流行起来，我将它称作背景 宽度满幅，内容宽度固定。这个设计的一些典型特征如下：</p>
-    <p>1.页面中包含多个大区块，每个区块都占据了整个视口的宽度，区块的背景也各不相同。</p>
-    <p>2.内容是定宽的，即使在不同分辨率下的宽度不一样，那也只是因为媒体查询改变了这个固定的宽度值而已。在某些情况下，不同区块 的内容也可能具有不同的宽度。</p>
-    <p>要实现这种设计风格，最常见的方法就是为每个区块准备两层元素:外层用来实现满幅的背景，内层用来实现定宽的内容。后者是通过margin: auto 实现水平居中的。</p>
-    <p>目前绝大多数的网页设计师 / 工程师都是这样写的。难道为了这个效果就一定要添加一层额外的元素?我们能否在现代 CSS 的帮助下彻底抛弃这个累赘?</p>
-    <p>􏲇􏲈􏳶􏳷􏰖􏳸􏳹􏳺􏳻􏲄􏰖􏳸􏳹如果屏幕的宽度比内容的宽度还要窄，下面的解决方案就是没有内边距，不过别急，我们可以用媒体查询修复这个问题。</p>
+  <!-- 绝对定位法 -->
+  <div class="box1">
+    <main>
+      <h1>Am I centered yet?</h1>
+      <p>Center me, please!</p>
+    </main>
   </div>
 
-  <header>
-    <h1>Fluid background, <br />fixed content</h1>
-  </header>
-  <section>
-    <h1>Heading</h1>
-    <p>Bacon ipsum dolor amet voluptate et shoulder, ipsum flank tongue exercitation commodo sed beef ribs drumstick in venison laborum. Laboris ut enim id drumstick, et aute esse. Consequat ad kielbasa anim pork loin turkey qui cupidatat drumstick doner labore. Nulla sirloin jerky do sed magna meatloaf. Ribeye ea ut elit leberkas laboris sausage corned beef drumstick cillum non.</p>
-  </section>
-  <section>
-    <h1>Another heading</h1>
-    <p>Nostrud landjaeger cillum beef cow tail cupidatat non mollit voluptate jowl. Enim sunt in, flank hamburger proident qui. Id aute excepteur chuck magna tempor ipsum pork chop t-bone. Frankfurter meatball pork loin beef et leberkas pork. Pig ball tip pancetta in.</p>
-    <p>Ribeye in veniam ipsum flank. Elit incididunt t-bone proident meatball. Porchetta exercitation prosciutto sausage chuck ut eu brisket shank pastrami turkey sunt laboris tenderloin anim. Landjaeger do venison laboris kevin.</p>
-  </section>
-  <footer>
-    <p>&copy; 2015 Lea Verou (j/k, feel free to use wherever)</p>
-    <p>Consectetur et t-bone pork loin. Tri-tip cupim in, spare ribs velit exercitation in. Tempor cillum fugiat, nisi leberkas reprehenderit anim laboris proident cow. Eu fatback kevin sint, ad shoulder in venison picanha. Sausage drumstick capicola, culpa boudin pork belly minim aute ipsum biltong picanha venison nulla adipisicing.</p>
-  </footer>
+  <!-- 基于视口单位的解决方案，只适用于在视口中居中的场景 -->
+  <!-- <main>
+    <h1>Am I centered yet?</h1>
+    <p>Center me, please!</p>
+  </main> -->
 
+  <!-- flexbox方案，这是毋庸置疑的最佳解决方案 -->
+  <div class="box2">
+    <main>
+      <h1>Am I centered yet?</h1>
+      <p>Center me, please!</p>
+    </main>
+  </div>
 </body>
 
 </html>
