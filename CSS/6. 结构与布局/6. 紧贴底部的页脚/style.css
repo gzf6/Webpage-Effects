@@ -1,0 +1,47 @@
+/* 法1 固定高度的解决方案， */
+/**
+ * Sticky footer with fixed height
+ */
+ 
+main {
+  /* 减去header和footer的高度，就是主要内容的高度，calc中运算符左右记得加空格 */
+	min-height: calc(100vh - 5em - 7em);
+}
+
+/* Toggle checkbox to alternate between short/long content */
+#contents:checked ~ p { display: none }
+
+/* Basic styling */
+body {
+	margin: 0;
+	font: 100%/1.5 Palatino Linotype, Palatino, serif;
+}
+
+h1 { margin: .5em 0 0; }
+
+header { text-align: center; height: 3em; }
+
+main, footer {
+	display: block;
+	padding: .5em calc(50% - 400px);
+}
+
+footer {
+	background: linear-gradient(#222, #444);
+	color: white;
+	height: 6em;
+}
+/* 似乎比那些需要固定高度的方案还要稍好一些，主要好在它的代码极其精简。不过，如果页面布局不是这么简单的话，那这个方法就完全不实用了。 它不仅要求我们确保页脚内 的文本永远不会折行，而且每当我们改变页脚的尺寸时，都需要跟着调整 min-height值(也就是说，这不够DRY);此外，除非我们愿意给页头和 内容主体套一层额外的 HTML 元素，否则还要跟着页头的尺寸修改。想必 在这个美好的新时代，我们还有更好的办法，对吗?*/
+
+/* 法2 Flex弹性盒子，􏰏􏰐􏰑􏰒􏰓􏰔􏰕􏰖更灵活的解决方案*/
+/* 我们所期望的是，页头和页脚的高度由其内部因素来决定，而内容区块的高度应该可以自动伸展并占满所有的可用空间 */
+/* 
+body {
+  display: flex;
+  flex-flow: column;  // flex-flow 是flex-direction和flex-wrap的组合
+  min-height: 100vh; 
+}
+main { flex: 1; } 
+// 􏰯􏰰flex是flex-grow、flex-shrink、flex-basis的简单语法。任何元素只要设置了一个大于0的flex值，就将获得可伸缩的特性，flex的值负责控制多个可伸缩元素之间的比例分配。
+// 比如，如果 main 是flex:2，而footer是flex:1，则内容区块的高度将是页脚高度的两倍。
+*/
