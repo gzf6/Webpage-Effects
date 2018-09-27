@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>缓动效果</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="intro">
+    <p>
+      实际上，回弹效果并不只对位移动画有帮助。对几乎所有类型的过渡动
+      画来说，它都可以显著增强动画的体验，其中包括：
+    </p>
+    <p>
+      1. 尺寸变化（比如：元素在 :hover 时变大，弹出框从 transform:
+      scale(0) 的状态开始放大显示，柱状图中的每根柱子动态地冒出
+      来，等等）
+    </p>
+    <p>
+      2. 角度变化（比如：元素的旋转动作，饼图中的各个扇区以动画的方
+      式从0°开始展开为实际大小，等等）
+    </p>
+    <p>
+      作为对五种预定义曲线的补充，CSS 提供了一个cubic-bezier()
+      函数，允许我们指定自定义的调速函数。它接受四个参数，分别代表两个控
+      制锚点的坐标值，我们通过这两个控制锚点来指定想要的贝塞尔曲线。语
+      法形式是这样的：cubic-bezier(x1, y1, x2, y2)，其中(x1, y1) 表示第一
+      个控制锚点的坐标，而(x2, y2) 是第二个。曲线片断的两个端点分别固定在
+      (0,0) 和(1,1)，前者是整个过渡的起点（时间进度为零，动画进度为零），
+      后者是终点（时间进度为100%，动画进度为100%）。
+    </p>
+    <p>
+      请注意，固定曲线的两个端点并不是唯一的限制。另外，两个控制锚点
+      的x 值都被限制在[0, 1] 区间内（即我们无法把手柄在水平方向上移出这个
+      图形范围）。这个限制并不是随便加上的。由于我们无法穿越时间，
+      因此无法指定这样一个过渡：在被触发之前就开始了，或者在时间用完之后
+      仍然没有结束。这里真正的限制是节点的数量：曲线只能有两个节点，这明
+      显限制了它的能力，但也让cubic-bezier() 函数易于使用。尽管这些限制
+      确实存在，但cubic-bezier() 所能创造出的可能性已经相当可观了。
+    </p>
+    <p>
+      从逻辑上来说，只要我们把控制锚点的水平坐标和垂直坐标互换，就
+      可以得到任何调速函数的反向版本。这一点对关键字也是适用的；上述所有五个关键字都有其对应的cubic-bezier() 形式的值。举例来说，ease
+      等同于cubic-bezier(.25,.1,.25,1)， 因此它的反向版本就是cubicbezier(.
+      1,.25,1,.25)，
+    </p>
+    <p>
+      三次贝塞尔曲线有一个饱受诟病的缺点：在没有可视化界面的情况下，他极难编辑和理解，用于描述css动画的调速函数时更是如此，有一些在线工具应运而生，比如 <a href="http://cubic-bezier.com">http://cubic-bezier.com</a>
+    </p>
+  </div>
+
+  <h3>弹跳效果</h3>
+  <div class="box box1">
+    <div class="ball"></div>
+  </div>
+  <p>在 Dan Eden（<a href="http://daneden.me">http://daneden.me</a>） 编写的animate.css动画库中，所用到的调速函数分别是 cubic-bezier(.215,.61,.355,1) 和 cubicbezier(.755,.05,.855,.06) ，（后者不是前者的反向版本，他的曲线更加陡峭，效果也更加逼真）</p>
+
+  <h3>弹性过渡</h3>
+  <label>
+    Your username:
+    <input value="leaverou">
+    <span class="callout">
+      Only letters, numbers, underscores (_) and hyphens (-) allowed!
+    </span>
+  </label>
+
+</body>
+
+</html>
