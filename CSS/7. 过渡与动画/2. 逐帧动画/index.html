@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>逐帧动画</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="intro">
+    <p>
+      将动画的每一帧的图片拼接在一张图片里，用逐帧动画进行展示，每次展示一帧。
+    </p>
+    <p>
+      秘诀是采用steps() 这个调速函数，而不是基于贝塞尔曲线的调速函数。
+    </p>
+    <p>
+      与贝塞尔曲线调速函数迥然不同的是，steps() 会根据你指定的步进数量，把整个动画切分为多帧，而且整个动画会在帧与帧之间硬切，不会做任何插值处理。
+    </p>
+    <p>
+      别忘了steps() 还接受可选的第二个参数，其值可以是start 或end（默认值）。这个参数用于指定动画在每个循环周期的什么位置发生帧的切换动作，但实际上这个参数用得并不多。如果我们只需要一个单步切换效果，还可以使用step-start 和step-end 这样的简写属性，它们分别等同于steps(1, start) 和steps(1, end)。
+    </p>
+    <p>
+      向 Simurai<a href="http://simurai.com">(http://simurai.com)</a>脱帽致敬，感谢他在 “用 steps() 实现拼合图片的动画效果” <a href="http://simurai.com/blog/2012/12/03/step-animation">(http://simurai.com/blog/2012/12/03/step-animation)</a> 这篇文章中提出了这个实用的技巧。
+    </p>
+  </div>
+
+  <div class="loader">Loading…</div>
+
+</body>
+
+</html>
