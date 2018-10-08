@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>打字动画</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="intro">
+    <p>
+      有些时候，我们希望一段文本中的字符逐个显现，模拟出一种打字的效果。这个效果在技术类网站中尤为流行，用等宽字体（注意，是等宽字体）可以营造出一种终端命令行的感觉。如果使用得当，它确实可以让整个网页的设计感提升一个档次。（本例技巧只适用于单行文本）
+    </p>
+    <p>
+      ch 单位是由CSS 值与单位（第三版）（http://w3.org/TR/css3-values）规范引入的一个新单位，表示“0”字形的宽度。它应该是最不为人知的一个新单位，因为在绝大多数场景下，我们并不关心0 这个字符显示出来到底有多宽。但对等宽字体来说，这是个例外。在等宽字体中，“0”字形的宽度和其他所有字形的宽度是一样的。因此，如果我们用 ch 单位来表达这个标题的宽度，那取值实际上就是字符的数量。字符数量用js自动获取。
+    </p>
+    <p>
+      画龙点睛的最后一步，就是给它加上一个闪烁的光标。我们在上一节中已经弄清楚了闪烁动画的原理。在这个例子中，我们可以用一个伪元素来生成光标，并通过opacity 属性来实现闪烁效果；我们也可以用右边框来模拟光标效果，这样就可以把有限的伪元素资源节省下来留作他用
+    </p>
+  </div>
+
+  <h1>CSS is awesome!</h1>
+
+  <script>
+    function $$(selector, context) {
+      context = context || document;
+      var elements = context.querySelectorAll(selector);
+      return Array.prototype.slice.call(elements);
+    }
+    $$('h1').forEach(function(h1) {
+      var len = h1.textContent.length, s = h1.style;
+      s.width = len + 'ch';
+      s.animationTimingFunction = "steps("+len+"),steps(1)";
+    });
+  </script>
+</body>
+
+</html>

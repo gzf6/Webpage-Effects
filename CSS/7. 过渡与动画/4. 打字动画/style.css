@@ -1,0 +1,35 @@
+body {
+  padding-bottom: 300px;
+}
+
+div.intro {
+  margin: 100px auto;
+  padding: 0 .5em;
+  width: 500px;
+}
+
+/**
+ * Typing animation
+ */
+ 
+@keyframes typing {
+  from { width: 0 }
+}
+
+@keyframes caret {
+  50% { border-right-color: transparent; }
+}
+
+h1 {
+  font: bold 200% Consolas, Monaco, monospace;
+  /* 回退措施对不支持ch单位的浏览器使用 */
+  /* width: 8.25em; */
+  /* 宽度由js根据字符数量动态生成 */
+  /* width: 15ch; */
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: .05em solid;
+  /* 动画函数由js根据字符数量动态生成 */
+  animation: typing 8s,
+             caret 1s infinite;
+}
