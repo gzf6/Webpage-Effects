@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>闪烁效果</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="intro">
+    <p>
+      对于平滑闪烁1
+      虽然在这个特定的动画中表现得不是很明显（因为颜色或透明度的过渡很难体现出各种调速函数的特征），但我们心里一定要明白：这个动画一直是处在加速过程中的，不论是在文字显现还是隐去时——这对某些动画来说可能会显得不太自然（比如类似脉搏跳动的动画）。在那种情况下，我们可以从工具箱中请出另一件法宝：animation-direction。
+    </p>
+    <p>
+      对于平滑闪烁2
+      animation-direction 的唯一作用就是反转每一个循环周期（reverse），或第偶数个循环周期（alternate），或第奇数个循环周期（alternate-reverse）。它的伟大之处在于，它会同时反转调整函数，从而产生更加逼真的动画效果。我们可以把它用在需要闪烁的元素上。
+    </p>
+    <p>
+      请注意，我们必须把动画循环的次数翻倍，因为现在一次淡入淡出的过程是由两个循环周期组成的。基于同样的原因，我们也要把 animation-duration 减半。
+    </p>
+  </div>
+
+  <p class="blink-smooth-1">平滑闪烁1</p>
+  <p class="blink-smooth-2">平滑闪烁2</p>
+  <p class="blink">普通闪烁（注意：在应用此种闪烁时必须警告癫痫患者不要观看）</p>
+
+</body>
+
+</html>
