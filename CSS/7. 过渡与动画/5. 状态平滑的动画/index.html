@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>状态平滑的动画</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="intro">
+    <p>
+      我们需要的并不是在:hover 时应用一个动画，因为这意味着动画被中断时的状态是无处保存的。我们需要的是当失去 :hover 状态时暂停动画。幸运的是，有一个属性正好为暂停动画的需求专门设计的：animation-play-state ！
+    </p>
+    <p>
+      让它一开始就处于暂停状态，直到:hover 时再启动动画。这再也不是添加和取消动画的问题了，而只是暂停和继续一个一直存在的动画，因此再也不会有生硬的跳回现象了。
+    </p>
+  </div>
+
+  <div class="panoramic"></div>
+</body>
+
+</html>
