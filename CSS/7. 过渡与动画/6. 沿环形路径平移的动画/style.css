@@ -27,6 +27,28 @@ div.intro {
   animation-direction: reverse;
 }
 
+/**
+ * Animation along a circular path - Solution 2
+ */
+ 
+@keyframes spin2 {
+  from {
+    transform: rotate(0turn)
+               translateY(-150px) translateY(50%)
+               rotate(1turn)
+  }
+  to {
+    transform: rotate(1turn)
+               translateY(-150px) translateY(50%)
+               rotate(0turn);
+  }
+}
+
+
+.avatar2 {
+  animation: spin2 3s infinite linear;
+}
+
 /* Anything below this is just styling */
 
 .avatar {
@@ -34,6 +56,14 @@ div.intro {
   margin: 0 auto;
   border-radius: 50%;
   overflow: hidden;
+}
+
+.avatar2 {
+	display: block;
+	width: 50px;
+	margin: calc(50% - 25px) auto 0;
+	border-radius: 50%;
+	overflow: hidden;
 }
 
 .avatar > img {
